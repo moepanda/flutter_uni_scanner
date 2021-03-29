@@ -4,7 +4,7 @@
 
 ## 示例
 
-<img src="./example/assets/flutter_uni_scanner_android1.gif" width="36%">
+<img src="example/assets/demo1.gif" width="36%">
 
 ## 功能
 - [x] 相机扫描二维码
