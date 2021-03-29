@@ -1,0 +1,38 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_uni_scanner (0.0.1):
+    - Flutter
+    - LBXScan/LBXZXing (~> 2.5)
+    - LBXScan/UI (~> 2.5)
+    - Toast (~> 4.0.0)
+  - LBXScan/LBXZXing (2.5.1):
+    - LBXScan/Types (~> 2.2)
+  - LBXScan/Types (2.5.1)
+  - LBXScan/UI (2.5.1):
+    - LBXScan/Types (~> 2.2)
+  - Toast (4.0.0)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_uni_scanner (from `.symlinks/plugins/flutter_uni_scanner/ios`)
+
+SPEC REPOS:
+  trunk:
+    - LBXScan
+    - Toast
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_uni_scanner:
+    :path: ".symlinks/plugins/flutter_uni_scanner/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_uni_scanner: 9fc287f51900d787efec1a217218e435a7408485
+  LBXScan: 90ca10d0c38fb4a5a6980d7782354f3f69f50093
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+
+PODFILE CHECKSUM: 0f91d9c52337aecc643973ada5772e02de2c15e6
+
+COCOAPODS: 1.10.1
