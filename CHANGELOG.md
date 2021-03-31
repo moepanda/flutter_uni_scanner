@@ -1,3 +1,4 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+## 0.0.4
+更换演示gif图片地址

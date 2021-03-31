@@ -4,7 +4,7 @@
 
 ## 示例
 
-<img src="https://github.com/moepanda/flutter_uni_scanner/blob/master/example/assets/demo1.gif" width="36%">
+<img src="https://raw.githubusercontent.com/moepanda/flutter_uni_scanner/master/example/assets/demo1.gif" width="36%">
 
 ## 功能
 - [x] 相机扫描二维码
@@ -27,8 +27,7 @@ https://github.com/MxABC/LBXScan
 
 ### 1 在pubspec.yaml中引入本插件:
 
-    flutter_uni_scanner:
-        git: https://github.com/moepanda/flutter_uni_scanner
+    flutter_uni_scanner: ^0.0.4
 
 ### 2.1 android:
 在android/app/src/main/AndroidManifest.xml文件中添加以下内容
