@@ -48,4 +48,12 @@ https://github.com/MxABC/LBXScan
 ### 2.2 ios:
 在Info.plist文件中添加以下权限:
 
-    <key>NSCameraUsageDescription
+    <key>NSCameraUsageDescription</key>
+    <string>...</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>...</string>
+
+### 3 调用方法:
+
+    Map map = await FlutterUniScanner.startScan;
+    print("Code is:"+map['code']);
