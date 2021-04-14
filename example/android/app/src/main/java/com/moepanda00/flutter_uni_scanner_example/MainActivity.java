@@ -1,7 +1,6 @@
 package com.moepanda00.flutter_uni_scanner_example;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;

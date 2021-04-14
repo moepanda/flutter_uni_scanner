@@ -3,6 +3,7 @@
 #import "QQScanZXingViewController.h"
 #import "Global.h"
 
+/** FlutterUniScannerPlugin */
 @implementation FlutterUniScannerPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     
@@ -16,6 +17,7 @@
     instance.hostViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
 }
 
+/** FlutterUniScannerPlugin handleMethodCall*/
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
     if ([@"getPlatformVersion" isEqualToString:call.method]) {
       result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
@@ -26,7 +28,7 @@
       result(FlutterMethodNotImplemented);
     }
 }
-
+/** FlutterUniScannerPlugin showBarcodeView*/
 - (void)showBarcodeView {
     QQScanZXingViewController *vc = [QQScanZXingViewController new];
     vc.style = [StyleDIY qqStyle];
@@ -40,7 +42,7 @@
     [self.hostViewController presentViewController:navigationController animated:YES completion:nil];
 }
 
-
+/** FlutterUniScannerPlugin didFailWithErrorCode*/
 - (void)lBXScanBaseViewController:(LBXScanBaseViewController *)controller didFailWithErrorCode:(NSString *)errorCode {
     if (self.result){
         self.result([FlutterError errorWithCode:errorCode
@@ -49,6 +51,7 @@
     }
 }
 
+/** FlutterUniScannerPlugin didScanBarcodeWithResult*/
 - (void)lBXScanBaseViewController:(LBXScanBaseViewController *)controller didScanBarcodeWithResult:(NSString *)result {
     if (self.result) {
         NSDictionary *resultDict = @{@"code":result};

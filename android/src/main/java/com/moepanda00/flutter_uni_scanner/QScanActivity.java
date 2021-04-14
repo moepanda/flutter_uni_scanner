@@ -3,7 +3,11 @@ package com.moepanda00.flutter_uni_scanner;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -11,16 +15,17 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
-import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class  QScanActivity extends Activity implements
-        QRCodeView.Delegate,
+
+public class QScanActivity extends Activity
+        implements QRCodeView.Delegate,
         EasyPermissions.PermissionCallbacks {
 
     private static final String TAG = QScanActivity.class.getSimpleName();
@@ -36,6 +41,10 @@ public class  QScanActivity extends Activity implements
         mZXingView = findViewById(R.id.zxingview);
         mZXingView.setDelegate(this);
         mZXingView.getScanBoxView().setOnlyDecodeScanBoxArea(true); // 仅识别扫描框中的码
+
+        if(getIntent().getStringExtra(Constant.TIP_TEXT)!=null){
+            mZXingView.getScanBoxView().setQRCodeTipText(getIntent().getStringExtra(Constant.TIP_TEXT));
+        }
     }
 
     @Override
@@ -95,18 +104,10 @@ public class  QScanActivity extends Activity implements
     @SuppressLint("UseCompatLoadingForDrawables")
     public void onClick(View v) {
         if(v.getId()==R.id.iv_gallery){
-                /*
-                从相册选取二维码图片，这里为了方便演示，使用的是
-                https://github.com/bingoogolapple/BGAPhotoPicker-Android
-                这个库来从图库中选择二维码图片，这个库不是必须的，你也可以通过自己的方式从图库中选择图片
-                 */
-            Intent photoPickerIntent = new BGAPhotoPickerActivity.IntentBuilder(this)
-                    .cameraFileDir(null)
-                    .maxChooseCount(1)
-                    .selectedPhotos(null)
-                    .pauseOnScroll(false)
-                    .build();
-            startActivityForResult(photoPickerIntent, REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY);
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(Intent.createChooser(intent, "选择图片"),REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY);
             closeTorch();
         }
 
@@ -139,10 +140,16 @@ public class  QScanActivity extends Activity implements
         mZXingView.startSpotAndShowRect(); // 显示扫描框，并开始识别
 
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY) {
-            final String picturePath = BGAPhotoPickerActivity.getSelectedPhotos(data).get(0);
-            // 本来就用到 QRCodeView 时可直接调 QRCodeView 的方法，走通用的回调
-            mZXingView.decodeQRCode(picturePath);
-            //没有用到 QRCodeView 时可以调用 QRCodeDecoder 的 syncDecodeQRCode 方法
+            data.getStringExtra("picturePath");
+            Uri uri = data.getData();
+            ContentResolver cr = getContentResolver();
+            try {
+                Bitmap bmp = BitmapFactory.decodeStream(cr.openInputStream(uri));
+                mZXingView.decodeQRCode(bmp);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                finishActivity(false, e.getMessage());
+            }
         }
     }
 

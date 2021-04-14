@@ -1,4 +1,5 @@
 ## 0.0.1
+init
 
 ## 0.0.4
-更换演示gif图片地址
+change demo gif url

@@ -1,6 +1,6 @@
 name: flutter_uni_scanner
 description: A code scanning plug-in that supports camera scanning of one-dimensional codes and two-dimensional codes; supports selection and recognition from photo albums。
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/moepanda/flutter_uni_scanner
 
 environment:

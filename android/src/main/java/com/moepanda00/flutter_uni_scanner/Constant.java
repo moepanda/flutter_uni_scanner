@@ -10,4 +10,6 @@ package com.moepanda00.flutter_uni_scanner;
 class Constant {
 
     public static final String PLUGIN_NAME = "com.moepanda00.flutter_uni_scanner";
+
+    public static final String TIP_TEXT = "tipText";
 }

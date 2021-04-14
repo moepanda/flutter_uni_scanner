@@ -33,6 +33,7 @@ public class FlutterUniScannerPlugin implements
   private Context applicationContext;
   private Activity activity;
 
+  /** FlutterUniScannerPlugin registerWith */
   //旧版的注册方式
   public static void registerWith(Registrar registrar) {
     FlutterUniScannerPlugin plugin = new FlutterUniScannerPlugin();
@@ -59,10 +60,10 @@ public class FlutterUniScannerPlugin implements
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     this.result = result;
-    if (call.method.equals("getPlatformVersion")) {
-      result.success("Android " + android.os.Build.VERSION.RELEASE);
-    } else if (call.method.equals("startScan")) {
-      activity.startActivityForResult(new Intent(activity, QScanActivity.class), 100);
+    if (call.method.equals("startScan")) {
+      Intent intent = new Intent(activity, QScanActivity.class);
+      intent.putExtra(Constant.TIP_TEXT,(String)call.argument(Constant.TIP_TEXT));
+      activity.startActivityForResult(intent, 100);
     }else {
       result.notImplemented();
     }
@@ -76,14 +77,16 @@ public class FlutterUniScannerPlugin implements
   @Override
   public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == 100) {
+      String errorCode = "0000";
+      Map<String, String> map = new HashMap<>();
+      map.put("errorCode",errorCode);
       if (resultCode == Activity.RESULT_OK) {
         String barcode = data.getStringExtra("SCAN_RESULT");
-        Map<String, String> map = new HashMap<>();
         map.put("code",barcode);
         result.success(map);
       } else {
-        String errorCode = data.getStringExtra("ERROR_CODE");
-        result.error(errorCode, null, null);
+        map.put("errorCode",data.getStringExtra("ERROR_CODE"));
+        result.success(map);
       }
       return true;
     }
