@@ -19,9 +19,7 @@
 
 /** FlutterUniScannerPlugin handleMethodCall*/
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-    if ([@"getPlatformVersion" isEqualToString:call.method]) {
-      result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
-    } else if ([@"startScan" isEqualToString:call.method]) {
+    if ([@"startScan" isEqualToString:call.method]) {
         self.result = result;
         [self showBarcodeView];
     }else {

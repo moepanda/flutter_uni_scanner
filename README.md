@@ -55,5 +55,5 @@ https://github.com/MxABC/LBXScan
 
 ### 3 调用方法:
 
-    Map map = await FlutterUniScanner.startScan;
+    Map map = await FlutterUniScanner.startScan();
     print("Code is:"+map['code']);
