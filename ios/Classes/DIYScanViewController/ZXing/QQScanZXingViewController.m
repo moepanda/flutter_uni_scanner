@@ -74,6 +74,16 @@
 //绘制扫描区域
 - (void)drawTitle
 {
+    if (_returnBtn) {
+        return;
+    }
+    
+    self.returnBtn = [[UIButton alloc]init];
+    self.returnBtn.frame = CGRectMake(20, 20, 48, 48);
+    [self.returnBtn setImage:[UIImage imageNamed:@"CodeScan.bundle/ic_back"] forState:UIControlStateNormal];
+    [self.returnBtn addTarget:self action:@selector(returnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.returnBtn];
+    
     if (!_topTitle)
     {
         self.topTitle = [[UILabel alloc]init];
@@ -90,7 +100,7 @@
         
         _topTitle.textAlignment = NSTextAlignmentCenter;
         _topTitle.numberOfLines = 0;
-        _topTitle.text = @"扫二维码/条形码";
+        _topTitle.text = self.tipText;
         _topTitle.textColor = [UIColor whiteColor];
         [self.view addSubview:_topTitle];
     }    
@@ -162,6 +172,10 @@
     }
     else
         [_btnFlash setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
+}
+
+- (void)returnAction{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
