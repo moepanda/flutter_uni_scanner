@@ -110,9 +110,11 @@ public class QScanActivity extends Activity
             startActivityForResult(Intent.createChooser(intent, "选择图片"),REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY);
             closeTorch();
         }
-
         if(v.getId()==R.id.iv_torch){
             triggerTorch();
+        }
+        if(v.getId()==R.id.iv_back){
+            finishActivity(false, "CANCEL");
         }
     }
 
